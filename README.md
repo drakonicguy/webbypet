@@ -1,5 +1,5 @@
 # WebbyPet
-Interactive pet for your website. Easy to set up and adjust.
+Interactive pet for your website. Easy to set up and adjust.<br>
 (Not much here, yet)
 
 [demo](https://drakonic.neocities.org/webbypet)
