@@ -7,6 +7,7 @@ Interactive pet for your website. Easy to set up and adjust.
 ## TO-DO
 - Features
   - ✅ walks around
+  - ◻️ speed is relative to distance. can be adjusted
   - ◻️ can be pet
   - ◻️ can be picked up
   - ◻️ speaks phrases (in text bubbles)
