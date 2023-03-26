@@ -22,22 +22,25 @@ async function decide() {
     while (true) {
         if (!(mouseover && mouseheld)) {
             console.log("Deciding...")
+            // change this interval to be random later
             await sleep(500)
             var rand = Math.random()
             if (rand < 0.1) {
-            learn()
-            console.log("I will learn")
+                console.log("I will learn")
+                learn()
             }
             else if (rand < 0.45) {
-            randWalk()
-            console.log("I will walk")
-            // wait for animation to finish
-            await sleep(10000)
-            console.log("done")
+                randWalk()
+                console.log("I will walk")
+                // wait for animation to finish
+                await sleep(10000)
+                console.log("done")
             }
             else {
-            speak()
-            console.log("I will speak")
+                console.log("I will speak")
+                speak()
+                await sleep(1000)
+                speechbubble.style.display = "none"
             }
         }
         else {
@@ -64,8 +67,9 @@ function pickedUp() {
 }
 // saying stuff
 function speak() {
-    // grabs phrases from a seperate js file
-    // adds phrases from cookies
+    //speaks
+    speechbubble.style.display = "block"
+    speechbubble.innerHTML = phrases[randomNumber(phrases.length-1)]
 }
 // learning stuff
 function learn(text) {
@@ -73,12 +77,26 @@ function learn(text) {
 }
 // END OF DECLARATIONS
 
-// create HTML element
+// add needed js files
+const phrasesjs = document.createElement("script");
+phrasesjs.src = "webbypet/phrases.js"
+document.body.appendChild(phrasesjs);
+// create HTML elements
 const petelement = document.createElement("div");
 petelement.id = "webbypet";
 petelement.innerHTML = "pet"
 document.body.appendChild(petelement);
 var pet = document.getElementById("webbypet")
+const speechbubbleE = document.createElement("div");
+speechbubbleE.id = "speechbubble";
+speechbubbleE.style.display = "none"
+pet.appendChild(speechbubbleE)
+var speechbubble = document.getElementById("speechbubble")
+// load stylesheet
+var petstyle = document.createElement( "link" );
+petstyle.href = "webbypet/webbypet.css"
+petstyle.rel = "stylesheet";
+document.getElementsByTagName( "head" )[0].appendChild( petstyle )
 
 // event checkers
 onmousedown = (event) => {console.log("mouse down"); mouseheld = true};

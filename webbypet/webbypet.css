@@ -1,0 +1,16 @@
+ #webbypet {
+        height:50px;
+        width:50px;
+        background: red;
+        position: fixed;
+        left: 0vw;
+        top:0vh;
+        transition: left 10s, top 10s;
+      }
+#speechbubble {
+    background-color: #fff2b2;
+    position: relative;
+    left: 50px;
+    bottom: 50px;
+    width: 80px;
+}
