@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webbypet(wip)</title>
+    <style>
+      #webbypet {
+        height:50px;
+        width:50px;
+        background: red;
+        position: fixed;
+        left: 0vw;
+        top:0vh;
+        transition: left 10s, top 10s;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>webbypet project.</h3>
+    <p>an interactive pet, coming to websites near you soon ! hopefully.</p>
+    <script>
+      // create HTML element
+      const petelement = document.createElement("div");
+      petelement.id = "webbypet";
+      petelement.innerHTML = "pet"
+      document.body.appendChild(petelement);
+      var pet = document.getElementById("webbypet")
+      // decide on an action
+      function decide() {
+        var rand = Math.random()
+        if (rand < 0.1) {
+
+        }
+        else if (rand < 0.45) {
+          randWalk()
+        }
+        else {
+          speak()
+        }
+      }
+      //function for moving to a random position
+      function randWalk() {
+        var newPosX = Math.random()*100
+        var newPosY = Math.random()*100
+        pet.style.left = newPosX+"vw"
+        pet.style.top = newPosY+"vh"
+      }
+      // petting
+      function isPet() {
+        pet.style.background = "/webbypet/petpet.png"
+        // add sounds maybe
+      }
+      // picking up
+      function pickedUp() {
+        // move to mouse cursor
+      }
+      // saying stuff
+      function speak() {
+        // grabs phrases from a seperate js file
+        // adds phrases from cookies
+      }
+      // learning stuff
+      function learn(text) {
+        // saves learnt phrase in cookies
+      }
+      setInterval(randWalk, 10000)
+    </script>
+  </body>
+</html>
+
