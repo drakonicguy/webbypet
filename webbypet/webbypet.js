@@ -79,7 +79,7 @@ function learn(text) {
 
 // add needed js files
 const phrasesjs = document.createElement("script");
-phrasesjs.src = "webbypet/phrases.js"
+phrasesjs.src = "/webbypet/phrases.js"
 phrasesjs.type = "text/javascript"
 document.body.appendChild(phrasesjs);
 // create HTML elements
@@ -95,7 +95,7 @@ pet.appendChild(speechbubbleE)
 var speechbubble = document.getElementById("speechbubble")
 // load stylesheet
 var petstyle = document.createElement( "link" );
-petstyle.href = "webbypet/webbypet.css"
+petstyle.href = "/webbypet/webbypet.css"
 petstyle.rel = "stylesheet";
 document.getElementsByTagName( "head" )[0].appendChild( petstyle )
 
