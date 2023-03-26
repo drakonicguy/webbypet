@@ -80,6 +80,7 @@ function learn(text) {
 // add needed js files
 const phrasesjs = document.createElement("script");
 phrasesjs.src = "webbypet/phrases.js"
+phrasesjs.type = "text/javascript"
 document.body.appendChild(phrasesjs);
 // create HTML elements
 const petelement = document.createElement("div");
