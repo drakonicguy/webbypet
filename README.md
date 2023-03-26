@@ -1,4 +1,4 @@
-# webbypet
+# WebbyPet
 Interactive pet for your website. Easy to set up and adjust.
 (Not much here, yet)
 
