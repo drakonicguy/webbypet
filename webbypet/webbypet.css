@@ -1,7 +1,6 @@
  #webbypet {
-        height:50px;
-        width:50px;
-        background: red;
+        width:fit-content;
+        height:fit-content;
         position: fixed;
         left: 0vw;
         top:0vh;

@@ -9,12 +9,18 @@ var mouseheld = false
 var x = 0
 var y = 0
 
-// put this in a seperate config file later
-var petImage = "pet.png"
+// put all this in a seperate config file later
+
+//idle sprite
+var idleImage = "webbypet/img/front.png"
+//pickup sprite
 var pickupImage = "pickedup.png"
+//talk sprite
 var talkImage = "talk.png"
-// eventually walkimage will be split into 4 seperate ones, one for each diagonal movement
-var walkImage = "walk.png"
+// up right sprite
+var URimage = "webbypet/img/UR.png"
+// down right sprite
+var DRimage = "webbypet/img/DR.png"
 
 // decide on an action
 async function decide() {
@@ -23,7 +29,7 @@ async function decide() {
         if (!(mouseover && mouseheld)) {
             console.log("Deciding...")
             // change this interval to be random later
-            await sleep(500)
+            await sleep(1000)
             var rand = Math.random()
             if (rand < 0.1) {
                 console.log("I will learn")
@@ -34,12 +40,13 @@ async function decide() {
                 console.log("I will walk")
                 // wait for animation to finish
                 await sleep(10000)
+                petimg.src = idleImage
                 console.log("done")
             }
             else {
                 console.log("I will speak")
                 speak()
-                await sleep(1000)
+                await sleep(3000)
                 speechbubble.style.display = "none"
             }
         }
@@ -50,15 +57,29 @@ async function decide() {
 }
 //function for moving to a random position
 async function randWalk() {
-    pet.style.background = "url("+walkImage+") red"
-    var newPosX = Math.random()*100
-    var newPosY = Math.random()*100
+    var newPosX = randomNumber(98)
+    var newPosY = randomNumber(98)
+    if (pet.style.left.slice(0, -2) > newPosX) {
+        pet.style.transform = "scale(-1,1)"
+        speechbubble.style.transform = "scale(-1,1)"
+    }
+    else {
+        pet.style.transform = "scale(1,1)"
+        speechbubble.style.transform = "scale(1,1)"
+    }
+    console.log(pet.style.top.slice(0, -2) < newPosY)
+    if (pet.style.top.slice(0, -2) < newPosY) {
+        petimg.src = DRimage
+    }
+    else {
+        petimg.src = URimage
+    }
     pet.style.left = newPosX+"vw"
     pet.style.top = newPosY+"vh"
 }
 // petting
 function isPet() {
-    pet.style.background = "url("+petImage+") blue"
+    pet.style.background = "url("+petImage+")"
     // add sounds maybe
 }
 // picking up
@@ -79,23 +100,37 @@ function learn(text) {
 
 // add needed js files
 const phrasesjs = document.createElement("script");
-phrasesjs.src = "/webbypet/phrases.js"
+phrasesjs.src = "webbypet/phrases.js"
 phrasesjs.type = "text/javascript"
 document.body.appendChild(phrasesjs);
+
 // create HTML elements
+
+// main element
 const petelement = document.createElement("div");
 petelement.id = "webbypet";
-petelement.innerHTML = "pet"
 document.body.appendChild(petelement);
+
 var pet = document.getElementById("webbypet")
+//sprite
+const petimgE = document.createElement("img");
+petimgE.id = "webbypetimg";
+petimgE.alt = "interactive pet"
+petimgE.src = "webbypet/img/front.png"
+pet.appendChild(petimgE);
+
+var petimg = document.getElementById("webbypetimg")
+
+
 const speechbubbleE = document.createElement("div");
 speechbubbleE.id = "speechbubble";
 speechbubbleE.style.display = "none"
 pet.appendChild(speechbubbleE)
 var speechbubble = document.getElementById("speechbubble")
+
 // load stylesheet
 var petstyle = document.createElement( "link" );
-petstyle.href = "/webbypet/webbypet.css"
+petstyle.href = "webbypet/webbypet.css"
 petstyle.rel = "stylesheet";
 document.getElementsByTagName( "head" )[0].appendChild( petstyle )
 
