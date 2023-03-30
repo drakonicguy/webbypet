@@ -8,6 +8,8 @@ var mouseover = false
 var mouseheld = false
 var x = 0
 var y = 0
+// seconds for css transition
+var transition = 0
 
 // put all this in a seperate config file later
 
@@ -39,7 +41,7 @@ async function decide() {
                 randWalk()
                 console.log("I will walk")
                 // wait for animation to finish
-                await sleep(10000)
+                await sleep(transition*1000)
                 petimg.src = idleImage
                 console.log("done")
             }
@@ -67,13 +69,16 @@ async function randWalk() {
         pet.style.transform = "scale(1,1)"
         speechbubble.style.transform = "scale(1,1)"
     }
-    console.log(pet.style.top.slice(0, -2) < newPosY)
     if (pet.style.top.slice(0, -2) < newPosY) {
         petimg.src = DRimage
     }
     else {
         petimg.src = URimage
     }
+    transition = parseInt(Math.sqrt((Math.pow(pet.style.left.slice(0, -2)-newPosX,2))+(Math.pow(pet.style.top.slice(0, -2)-newPosY,2)))/5)
+    console.log("left "+transition+"s top "+transition+"s")
+    pet.style.transition = "left "+transition+"s top "+transition+"s"
+    console.log(pet.style.transition)
     pet.style.left = newPosX+"vw"
     pet.style.top = newPosY+"vh"
 }
