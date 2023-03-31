@@ -28,18 +28,6 @@ var y = 0
 // seconds for css transition
 var transition = 0
 
-// put all this in a seperate config file later
-
-//idle sprite
-var idleImage = "webbypet/img/front.png"
-//pickup sprite
-var pickupImage = "pickedup.png"
-//talk sprite
-var talkImage = "talk.png"
-// up right sprite
-var URimage = "webbypet/img/UR.png"
-// down right sprite
-var DRimage = "webbypet/img/DR.png"
 
 // decide on an action
 async function decide() {
@@ -92,7 +80,7 @@ async function randWalk() {
     else {
         petimg.src = URimage
     }
-    transition = parseInt(Math.sqrt((Math.pow(pet.style.left.slice(0, -2)-newPosX,2))+(Math.pow(pet.style.top.slice(0, -2)-newPosY,2)))/5)
+    transition = parseInt(Math.sqrt((Math.pow(pet.style.left.slice(0, -2)-newPosX,2))+(Math.pow(pet.style.top.slice(0, -2)-newPosY,2)))/5*speed)
     console.log("left "+transition+"s top "+transition+"s")
     pet.style.setProperty("transition","left "+transition+"s linear 0s, top "+transition+"s linear 0s")
     console.log(pet.style.transition)
@@ -118,13 +106,13 @@ function speak() {
 async function learn(text) {
     // saves learnt phrase in cookies
     speechbubble.style.display = "block"
-    speechbubble.innerHTML = "Teach me something!"
+    speechbubble.innerHTML = teach
     pet.style.cursor = "help"
     learnwait = 0
     while (!(mouseover && mouseheld)) {
-        await sleep(3)
-        learnwait += 3
-        if (learnwait == 3000) { return }
+        await sleep(1)
+        learnwait += 1
+        if (learnwait >= 500) { return }
     }
     phrases.push(prompt("Teach me a new phrase:"))
     document.cookie = "phrases="+JSON.stringify(phrases)
@@ -136,6 +124,10 @@ const phrasesjs = document.createElement("script");
 phrasesjs.src = "webbypet/phrases.js"
 phrasesjs.type = "text/javascript"
 document.body.appendChild(phrasesjs);
+const config = document.createElement("script");
+config.src = "webbypet/config.js"
+config.type = "text/javascript"
+document.body.appendChild(config);
 
 
 // create HTML elements
@@ -146,16 +138,27 @@ petelement.id = "webbypet";
 document.body.appendChild(petelement);
 
 var pet = document.getElementById("webbypet")
-//sprite
+// sprite
 const petimgE = document.createElement("img");
 petimgE.id = "webbypetimg";
 petimgE.alt = "interactive pet"
 petimgE.src = "webbypet/img/front.png"
+petimgE.setAttribute('draggable', false)
 pet.appendChild(petimgE);
 
 var petimg = document.getElementById("webbypetimg")
 
+// emote
+const emoteE = document.createElement("img");
+emoteE.id = "petemote";
+emoteE.alt = "pet's emotion"
+emoteE.src = "webbypet/img/heart.png"
+emoteE.setAttribute('draggable', false)
+pet.appendChild(emoteE);
 
+var emote = document.getElementById("petemote")
+
+// speech bubble
 const speechbubbleE = document.createElement("div");
 speechbubbleE.id = "speechbubble";
 speechbubbleE.style.display = "none"
@@ -175,6 +178,15 @@ onmouseup = (event) => {console.log("mouse up"); mouseheld = false};
 pet.onmouseover = function(event) {
     console.log("mouse hovering");
     mouseover = true
+}
+pet.onmouseout = async function(event) {
+    console.log("mouse out");
+    mouseover = false
+    await sleep(1000)
+    emote.src = heartEmote
+    emote.style.display = "inline"
+    await sleep(2000)
+    emote.style.display = "none"
 }
 
 // initiate behaviour
