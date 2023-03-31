@@ -35,7 +35,7 @@ async function decide() {
             var rand = Math.random()
             if (rand < 0.1) {
                 console.log("I will learn")
-                learn()
+                await learn()
             }
             else if (rand < 0.45) {
                 randWalk()
@@ -77,7 +77,7 @@ async function randWalk() {
     }
     transition = parseInt(Math.sqrt((Math.pow(pet.style.left.slice(0, -2)-newPosX,2))+(Math.pow(pet.style.top.slice(0, -2)-newPosY,2)))/5)
     console.log("left "+transition+"s top "+transition+"s")
-    pet.style.transition = "left "+transition+"s top "+transition+"s"
+    pet.style.setProperty("transition","left "+transition+"s linear 0s, top "+transition+"s linear 0s")
     console.log(pet.style.transition)
     pet.style.left = newPosX+"vw"
     pet.style.top = newPosY+"vh"
@@ -98,8 +98,14 @@ function speak() {
     speechbubble.innerHTML = phrases[randomNumber(phrases.length-1)]
 }
 // learning stuff
-function learn(text) {
+async function learn(text) {
     // saves learnt phrase in cookies
+    speechbubble.style.display = "block"
+    speechbubble.innerHTML = "Teach me something!"
+    while (!(mouseover && mouseheld)) {
+        await sleep(3)
+    }
+    phrases.append(prompt("Teach me a new phrase:"))
 }
 // END OF DECLARATIONS
 
