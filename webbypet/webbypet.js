@@ -1,9 +1,26 @@
-//DECLARATIONS
+//BASEFUNCTIONS
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 function randomNumber(max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max + 1));
 }
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+//DECLARATIONS
 var mouseover = false
 var mouseheld = false
 var x = 0
@@ -36,6 +53,8 @@ async function decide() {
             if (rand < 0.1) {
                 console.log("I will learn")
                 await learn()
+                speechbubble.style.display = "none"
+                pet.style.cursor = "grab"
             }
             else if (rand < 0.45) {
                 randWalk()
@@ -62,12 +81,10 @@ async function randWalk() {
     var newPosX = randomNumber(98)
     var newPosY = randomNumber(98)
     if (pet.style.left.slice(0, -2) > newPosX) {
-        pet.style.transform = "scale(-1,1)"
-        speechbubble.style.transform = "scale(-1,1)"
+        petimg.style.transform = "scale(-1,1)"
     }
     else {
-        pet.style.transform = "scale(1,1)"
-        speechbubble.style.transform = "scale(1,1)"
+        petimg.style.transform = "scale(1,1)"
     }
     if (pet.style.top.slice(0, -2) < newPosY) {
         petimg.src = DRimage
@@ -102,10 +119,15 @@ async function learn(text) {
     // saves learnt phrase in cookies
     speechbubble.style.display = "block"
     speechbubble.innerHTML = "Teach me something!"
+    pet.style.cursor = "help"
+    learnwait = 0
     while (!(mouseover && mouseheld)) {
         await sleep(3)
+        learnwait += 3
+        if (learnwait == 3000) { return }
     }
-    phrases.append(prompt("Teach me a new phrase:"))
+    phrases.push(prompt("Teach me a new phrase:"))
+    document.cookie = "phrases="+JSON.stringify(phrases)
 }
 // END OF DECLARATIONS
 
@@ -114,6 +136,7 @@ const phrasesjs = document.createElement("script");
 phrasesjs.src = "webbypet/phrases.js"
 phrasesjs.type = "text/javascript"
 document.body.appendChild(phrasesjs);
+
 
 // create HTML elements
 

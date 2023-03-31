@@ -4,7 +4,7 @@
         position: fixed;
         left: 0vw;
         top:0vh;
-        transition: left 10s, top 10s;
+        cursor:grab;
       }
 #speechbubble {
     background-color: #fff2b2;
