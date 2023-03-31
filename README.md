@@ -1,6 +1,5 @@
 # WebbyPet
 Interactive pet for your website. Easy to set up and adjust.<br>
-(Not much here, yet)
 
 [demo](https://drakonic.neocities.org/webbypet)
 
@@ -15,3 +14,4 @@ Interactive pet for your website. Easy to set up and adjust.<br>
   - ✅ sprite handling
   - ✅ config files with which you can set up sprites, settings, inital phrases, etc
   - maybe interactivity with on-site elements (toggleable)
+  - guide for setting it up
