@@ -1,3 +1,5 @@
+# MOVED TO [https://codeberg.org/drakonic/webbypet](https://codeberg.org/drakonic/webbypet)
+
 # WebbyPet
 Interactive pet for your website. Easy to set up and adjust.<br>
 
